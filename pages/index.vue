@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="buttons">
-      <button>ADD USER</button>
+      <button @click="handleRouteAddUser()">ADD USER</button>
     </div>
     <div v-if="loadingUser">LOADING USER...</div>
     <div v-if="users && !loadingUser" class="table-wrapper">
@@ -88,7 +88,7 @@ export default Vue.extend({
     },
     async deleteUser(id: number) {
       await axios
-        .delete(`https://gorest.co.in//public/v2/users/${id}`, {
+        .delete(`https://gorest.co.in/public/v2/users/${id}`, {
           headers: {
             Accept: 'application/json',
             Authorization: `Bearer 9690fb8196780608aa119e9cadbf3901b8d6679995f2667a259a1f07fb7617cd`,
@@ -116,6 +116,9 @@ export default Vue.extend({
     },
     async handleRoute(params: string) {
       this.$router.push({ path: 'details', query: { id: params } })
+    },
+    async handleRouteAddUser() {
+      this.$router.push('/add-user')
     },
   },
   mounted() {

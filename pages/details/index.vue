@@ -18,8 +18,12 @@
       </div>
       <button @click="handleBack()">BACK</button>
     </div>
-    <div v-if="posts.length !== 0 && !loadingPost">
+    <div v-if="posts.length !== 0 && !loadingPost" class="post-wrapper">
       <h5>USER'S POSTS</h5>
+      <div v-for="(post, id) in posts" :key="id">
+        <h6>{{ post.title }}</h6>
+        <p>{{ post.body }}</p>
+      </div>
     </div>
     <div v-if="posts.length === 0 && !loadingPost">
       <h5>THIS USER HASN'T POSTED ANYTHING YET</h5>
@@ -27,16 +31,17 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import axios from 'axios'
+import Vue from 'vue'
 
-export default {
+export default Vue.extend({
   data() {
     return {
       loadingUser: true,
       loadingPost: true,
-      posts: [],
-      user: [],
+      posts: [] as any,
+      user: [] as any,
       userData: ['id', 'email', 'gender', 'status'],
     }
   },
@@ -87,7 +92,7 @@ export default {
     this.getPosts()
     console.log(this.posts, 'INIPOSTS')
   },
-}
+})
 </script>
 
 <style lang="css">
@@ -122,5 +127,9 @@ button:hover {
 }
 .bg-even {
   background-color: whitesmoke;
+}
+.post-wrapper {
+  display: grid;
+  gap: 12px;
 }
 </style>
