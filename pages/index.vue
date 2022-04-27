@@ -20,13 +20,18 @@
             {{ user[`${tDatum}`] }}
           </td>
           <td class="tdata text-center">
-            <button class="btn-actions">UPDATE</button>
+            <button
+              class="btn-actions"
+              @click="handleRoute('edit-user', user.id.toString())"
+            >
+              EDIT
+            </button>
             <button class="btn-actions" @click="deleteUser(user.id)">
               DELETE
             </button>
             <button
               class="btn-actions"
-              @click="handleRoute(user.id.toString())"
+              @click="handleRoute('details', user.id.toString())"
             >
               DETAILS
             </button>
@@ -114,8 +119,8 @@ export default Vue.extend({
       }
       await this.getUsers()
     },
-    async handleRoute(params: string) {
-      this.$router.push({ path: 'details', query: { id: params } })
+    async handleRoute(path: string, params: string) {
+      this.$router.push({ path, query: { id: params } })
     },
     async handleRouteAddUser() {
       this.$router.push('/add-user')
@@ -149,6 +154,7 @@ button:hover {
 }
 .pagination {
   gap: 12px;
+  justify-content: end;
 }
 .table-wrapper {
   display: grid;
